@@ -1,0 +1,35 @@
+$color-button-primary: #5A06C6;
+$color-font-button-primary: #ffffff;
+$color-button-secondary: #000000;
+$color-font-button-secondary: transparent;
+
+.container {
+  border: none;
+  height: 32px;
+  width: 32px;
+  transition-duration: 0.3s;
+  background-color: transparent;
+  cursor: pointer;
+  color: white;
+  fill: white;
+}
+
+.container:hover {
+  scale: 0.95;
+}
+
+.container:active {
+  scale: 0.9;
+}
+
+.variant-send {
+  background-color: $color-button-primary;
+  color: $color-font-button-primary;
+  width: 64px;
+  border-radius: 100%;
+}
+
+.arrowIcon {
+  color: white;
+  fill: white;
+}

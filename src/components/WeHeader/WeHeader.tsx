@@ -1,0 +1,23 @@
+import React from 'react'
+import s from "./WeHeader.module.scss"
+import {WeHeaderProps} from "./WeHeader.types";
+import {useLocation, useNavigate} from "react-router-dom";
+import {headerConfig, headerVariant} from "../../config/headerConfig";
+import {WeIconButton} from "../WeIconButton";
+import {ReactComponent as Arrow} from "assets/icons/arrow.svg";
+
+export const WeHeader: React.FC<WeHeaderProps> = ({}) => {
+
+	const location = useLocation();
+	const variant = headerConfig(location.pathname);
+	const navigate = useNavigate();
+
+	return (
+		<div className={s.container}>
+			{variant === headerVariant.defaultWithBack &&
+				<WeIconButton icon={<Arrow/>} theme="transparent" onClick={() => {
+					navigate(-1)
+				}}/>}
+		</div>
+	)
+}

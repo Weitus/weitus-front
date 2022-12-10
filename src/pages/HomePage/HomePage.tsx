@@ -3,19 +3,22 @@ import reactLogo from 'assets/react.svg'
 import s from "./HomePage.module.scss"
 import clsx from "clsx";
 import {WeButton} from "../../components/WeButton";
+import {WeLinkButton} from "../../components/WeLinkButton";
+import {PATHS} from "../../config/paths";
+import {TemplatePage} from "../../templates/TemplatePage";
 
 export const HomePage: React.FC = () => {
 
 
 	return (
-		<div className={s.container}>
+		<TemplatePage>
 			<h1>
 				WEITUŚ Chatbot
 			</h1>
 			<div className={s.buttonContainer}>
-				<WeButton>Login</WeButton>
+				<WeLinkButton href={PATHS.login}>Login</WeLinkButton>
 				<WeButton>Chat without login in</WeButton>
 			</div>
-		</div>
+		</TemplatePage>
 	)
 }
