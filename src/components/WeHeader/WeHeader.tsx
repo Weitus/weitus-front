@@ -5,6 +5,9 @@ import {useLocation, useNavigate} from "react-router-dom";
 import {headerConfig, headerVariant} from "../../config/headerConfig";
 import {WeIconButton} from "../WeIconButton";
 import {ReactComponent as Arrow} from "assets/icons/arrow.svg";
+import clsx from "clsx";
+import {WeLinkButton} from "../WeLinkButton";
+import {PATHS} from "../../config/paths";
 
 export const WeHeader: React.FC<WeHeaderProps> = ({}) => {
 
@@ -13,11 +16,13 @@ export const WeHeader: React.FC<WeHeaderProps> = ({}) => {
 	const navigate = useNavigate();
 
 	return (
-		<div className={s.container}>
+		<div className={clsx(s.container, s["variant-" + variant])}>
 			{variant === headerVariant.defaultWithBack &&
 				<WeIconButton icon={<Arrow/>} theme="transparent" onClick={() => {
 					navigate(-1)
 				}}/>}
+			{variant === headerVariant.chat &&
+				<WeLinkButton href={PATHS.login} variant={"small"}>Login</WeLinkButton>}
 		</div>
 	)
 }

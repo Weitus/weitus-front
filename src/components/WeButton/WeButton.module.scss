@@ -7,9 +7,7 @@ $color-font-button-secondary: #ffffff;
   font-family: Helvetica, monospace;
   font-style: normal;
   font-weight: 400;
-  font-size: 32px;
   border: none;
-  height: 64px;
   transition-duration: 0.3s;
   padding: 0 16px;
   overflow: hidden;
@@ -32,10 +30,14 @@ $color-font-button-secondary: #ffffff;
   max-width: 560px;
   width: 100%;
   border-radius: 16px;
+  height: 64px;
+  font-size: 32px;
 }
 
 .variant-small {
   background-color: $color-button-secondary;
   color: $color-font-button-secondary;
   border-radius: 16px;
+  height: 48px;
+  font-size: 24px;
 }

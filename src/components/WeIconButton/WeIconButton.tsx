@@ -16,6 +16,7 @@ export const WeIconButton: React.FC<WeIconButtonProps> =
 			<button className={clsx(
 				s.container,
 				s["theme-" + theme],
+				className
 			)} {...props}>
 				{icon}
 			</button>

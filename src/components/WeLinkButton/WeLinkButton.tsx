@@ -1,18 +1,25 @@
 import React from 'react'
-import s from "./WeLinkButton.module.scss"
 import {WeLinkButtonProps} from "./WeLinkButton.types";
 import {Link} from "react-router-dom";
 import {WeButton} from "../WeButton";
+import clsx from "clsx";
+import s from "./WeLinkButton.module.scss";
 
-export const WeLinkButton: React.FC<WeLinkButtonProps> = ({
+export const WeLinkButton: React.FC<WeLinkButtonProps> = (
+	{
 		children,
-		className, href,
+		className,
+		buttonClassName,
+		href,
+		variant = 'default',
 		...props
 	}) => {
+
 	return (
-		<Link className={s.container} to={href}>
+		<Link className={clsx(className, s["variant-" + variant])} to={href}>
 			<WeButton
-				className={className}
+				className={buttonClassName}
+				variant={variant}
 				{...props}
 			>
 				{children}

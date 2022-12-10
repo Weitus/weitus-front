@@ -1,0 +1,23 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.chatContainer {
+  flex: 1;
+}
+
+.chatFormContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  column-gap: 32px;
+}
+
+.sendButton {
+  rotate: 90deg
+}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, {useState} from 'react'
 import reactLogo from 'assets/react.svg'
 import s from "./HomePage.module.scss"
 import clsx from "clsx";
@@ -17,7 +17,7 @@ export const HomePage: React.FC = () => {
 			</h1>
 			<div className={s.buttonContainer}>
 				<WeLinkButton href={PATHS.login}>Login</WeLinkButton>
-				<WeButton>Chat without login in</WeButton>
+				<WeLinkButton href={PATHS.chat}>Chat without login in</WeLinkButton>
 			</div>
 		</TemplatePage>
 	)

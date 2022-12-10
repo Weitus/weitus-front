@@ -1,17 +1,16 @@
 $color-button-primary: #5A06C6;
 $color-font-button-primary: #ffffff;
-$color-button-secondary: #000000;
-$color-font-button-secondary: transparent;
+$color-button-secondary: transparent;
+$color-font-button-secondary: #ffffff;
 
 .container {
   border: none;
-  height: 32px;
-  width: 32px;
   transition-duration: 0.3s;
-  background-color: transparent;
   cursor: pointer;
-  color: white;
-  fill: white;
+  border-radius: 100%;
+  height: 64px;
+  width: 64px;
+  padding: 16px;
 }
 
 .container:hover {
@@ -22,14 +21,12 @@ $color-font-button-secondary: transparent;
   scale: 0.9;
 }
 
-.variant-send {
+.theme-primary {
   background-color: $color-button-primary;
   color: $color-font-button-primary;
-  width: 64px;
-  border-radius: 100%;
 }
 
-.arrowIcon {
-  color: white;
-  fill: white;
+.theme-transparent {
+  background-color: $color-button-secondary;
+  color: $color-font-button-secondary;
 }
