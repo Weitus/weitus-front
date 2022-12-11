@@ -6,5 +6,7 @@ export const getMessages = async () => {
 		headers: {
 			'Authorization': `Bearer ${localStorage.getItem(LOCAL_STORAGE_CONFIG.AUTH_TOKEN)}`
 		}
-	});
+	}).then((r) => {
+		return r.data
+	})
 }
