@@ -45,6 +45,9 @@ export const ChatPage: React.FC = () => {
 
 	return (
 		<TemplatePage>
+
+			{/* Example chat - to remove after better integration with backend */}
+
 			<div className={s.container}>
 				<div className={s.messageBox}>
 					<div className={s.MessageTimeBOT}>
