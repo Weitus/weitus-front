@@ -9,12 +9,12 @@ import {TemplatePage} from "../../templates/TemplatePage";
 
 export const HomePage: React.FC = () => {
 
-
 	return (
 		<TemplatePage>
-			<h1>
+			{/* <h1>
 				WEITUŚ Chatbot
-			</h1>
+			</h1> */}
+			<img src="../../public/favicon.svg"></img>
 			<div className={s.buttonContainer}>
 				<WeLinkButton href={PATHS.login}>Login</WeLinkButton>
 				<WeLinkButton href={PATHS.chat}>Chat without login in</WeLinkButton>

@@ -46,6 +46,51 @@ export const ChatPage: React.FC = () => {
 	return (
 		<TemplatePage>
 			<div className={s.container}>
+				<div className={s.messageBox}>
+					<div className={s.MessageTimeBOT}>
+						<p className={s.timeText}> 12:37 </p>
+					</div>
+					<div className={s.messageContainerBOT}>
+						<p className={s.messageTextBOT}> Cześć, jestem Weituś - uczelniany bot WEiTI! </p>
+					</div>
+				</div>
+				<div className={s.messageBox}>
+					<div className={s.MessageTimeBOT}>
+						<p className={s.timeText}> 12:37 </p>
+					</div>
+					<div className={s.messageContainerBOT}>
+						<p className={s.messageTextBOT}> W czym mógłbym Ci pomóc? </p>
+					</div>
+				</div>
+
+				<div className={s.messageBox}>
+					<div className={s.messageContainerUser}>
+						<p className={s.messageTextUser}> Chciałbym poznać ofertę edukacyjną Twojego wydziału. </p>
+					</div>
+					<div className={s.MessageTimeBOT}>
+						<p className={s.timeText}> 12:39 </p>
+					</div>
+				</div>
+				<div className={s.messageBox}>
+					<div className={s.messageContainerUser}>
+						<p className={s.messageTextUser}> Mógłbyś opowiedzieć mi, jakie kierunki są u was dostępne? </p>
+					</div>
+					<div className={s.MessageTimeBOT}>
+						<p className={s.timeText}> 12:40 </p>
+					</div>
+				</div>
+
+
+				<div className={s.messageBox}>
+					<div className={s.MessageTimeBOT}>
+						<p className={s.timeText}> 12:40 </p>
+					</div>
+					<div className={s.messageContainerBOT}>
+						<p className={s.messageTextBOT}> Zajrzyj na stronę:<a href="https://www.elka.pw.edu.pl/content/view/full/18114 "> <strong>Opis kierunków studiów</strong></a></p>
+					</div>
+				</div>
+
+
 				<div className={s.chatContainer}>
 					{isLoggedIn && !isLoading && !error && messages.map((mess: any, index: number) => {
 						return <p key={`message-${index}`}>{mess.message}</p>
