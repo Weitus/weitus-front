@@ -1,0 +1,46 @@
+.messageBox {
+  display: flex;
+  position: relative;
+  width: 100%;
+  align-content: center;
+  column-gap: 4px;
+  justify-content: flex-end;
+}
+
+.messageBox-user {
+  @extend .messageBox;
+  flex-direction: row;
+}
+
+.messageBox-bot {
+  @extend .messageBox;
+  flex-direction: row-reverse;
+}
+
+.messageContainer {
+  padding: 8px;
+  border-radius: 16px;
+  font-size: x-large;
+  max-width: min(600px, 70vw);
+}
+
+.messageContainer-bot {
+  @extend .messageContainer;
+  background-color: #fac5f3;
+  color: black;
+}
+
+.messageContainer-user {
+  @extend .messageContainer;
+  background-color: #af42a0;
+  color: whitesmoke;
+}
+
+.messageTime {
+  font-size: large;
+  align-self: flex-end;
+}
+
+.link {
+  font-weight: bolder;
+}

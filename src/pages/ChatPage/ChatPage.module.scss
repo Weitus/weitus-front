@@ -4,75 +4,28 @@
   height: 100%;
   width: 100%;
   justify-content: space-between;
+  row-gap: 16px;
+  min-height: 0;
 }
 
 .chatContainer {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+  justify-content: flex-end;
+  height: 100%;
+  position: relative;
 }
 
 .chatFormContainer {
-  position: fixed;
-  bottom: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 80%;
+  width: 100%;
   column-gap: 32px;
 }
 
 .sendButton {
   rotate: 90deg
-}
-
-.messageContainerBOT {
-  background-color: #fac5f3;;
-  width: fit-content;
-  padding-left: 1%;
-  padding-right: 1%;
-  padding-bottom: 0.5%;
-  padding-top: 0.5%;
-  border-radius: 15px;
-  margin-top: 10px;
-}
-
-.messageTextBOT {
-  color: black;
-  font-size: x-large;
-}
-
-.messageContainerUser {
-  background-color: #af42a0;;
-  width: fit-content;
-  padding-left: 1%;
-  padding-right: 1%;
-  padding-bottom: 0.5%;
-  padding-top: 0.5%;
-  border-radius: 15px;
-  margin-top: 10px;
-  margin-left: auto; 
-  margin-right: 0;
-}
-
-.messageTextUser {
-  color: whitesmoke;
-  font-size: x-large;
-}
-
-.messageBox {
-  display: flex;
-  position: relative;
-  width: 100%;
-  align-content: center;
-}
-
-.MessageTimeBOT {
-  margin-top: auto;
-  padding-left: 1%;
-  padding-right: 1%;
-  padding-bottom: 0.5%;
-  padding-top: 0.5%;
-}
-
-.timeText {
-  font-size: large;
 }

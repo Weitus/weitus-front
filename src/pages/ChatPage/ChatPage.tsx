@@ -10,6 +10,7 @@ import {sendMessage} from "api/chat/sendMessage";
 import {useQuery} from "react-query";
 import {AxiosError} from "axios";
 import {useUserContext} from "../../context/UserContext";
+import {WeMessageContainer} from "../../components/WeMessageContainer";
 
 export const ChatPage: React.FC = () => {
 
@@ -43,61 +44,59 @@ export const ChatPage: React.FC = () => {
 
 	console.log(messages)
 
+	const mockedMessages = [
+		{
+			text: "Cześć, jestem Weituś - uczelniany bot WEiTI!",
+			time: "12:37",
+			isFromBot: true
+		},
+		{
+			text: "W czym mógłbym Ci pomóc?",
+			time: "12:38",
+			isFromBot: true
+		},
+		{
+			text: "Chciałbym poznać ofertę edukacyjną Twojego wydziału.",
+			time: "12:39",
+			isFromBot: false
+		},
+		{
+			text: "Mógłbyś mi opowiedzieć, jakie kierunki są u was dostępne?",
+			time: "12:40",
+			isFromBot: false
+		},
+		{
+			text: "Zajrzyj na stronę:",
+			time: "12:40",
+			isFromBot: true,
+			link: {
+				href: "https://www.elka.pw.edu.pl/content/view/full/18114",
+				text: "Opis kierunków studiów"
+			}
+		}
+	]
+
 	return (
 		<TemplatePage>
 
 			{/* Example chat - to remove after better integration with backend */}
 
 			<div className={s.container}>
-				<div className={s.messageBox}>
-					<div className={s.MessageTimeBOT}>
-						<p className={s.timeText}> 12:37 </p>
-					</div>
-					<div className={s.messageContainerBOT}>
-						<p className={s.messageTextBOT}> Cześć, jestem Weituś - uczelniany bot WEiTI! </p>
-					</div>
-				</div>
-				<div className={s.messageBox}>
-					<div className={s.MessageTimeBOT}>
-						<p className={s.timeText}> 12:37 </p>
-					</div>
-					<div className={s.messageContainerBOT}>
-						<p className={s.messageTextBOT}> W czym mógłbym Ci pomóc? </p>
-					</div>
-				</div>
-
-				<div className={s.messageBox}>
-					<div className={s.messageContainerUser}>
-						<p className={s.messageTextUser}> Chciałbym poznać ofertę edukacyjną Twojego wydziału. </p>
-					</div>
-					<div className={s.MessageTimeBOT}>
-						<p className={s.timeText}> 12:39 </p>
-					</div>
-				</div>
-				<div className={s.messageBox}>
-					<div className={s.messageContainerUser}>
-						<p className={s.messageTextUser}> Mógłbyś opowiedzieć mi, jakie kierunki są u was dostępne? </p>
-					</div>
-					<div className={s.MessageTimeBOT}>
-						<p className={s.timeText}> 12:40 </p>
-					</div>
-				</div>
-
-
-				<div className={s.messageBox}>
-					<div className={s.MessageTimeBOT}>
-						<p className={s.timeText}> 12:40 </p>
-					</div>
-					<div className={s.messageContainerBOT}>
-						<p className={s.messageTextBOT}> Zajrzyj na stronę:<a href="https://www.elka.pw.edu.pl/content/view/full/18114 "> <strong>Opis kierunków studiów</strong></a></p>
-					</div>
-				</div>
-
-
 				<div className={s.chatContainer}>
-					{isLoggedIn && !isLoading && !error && messages.map((mess: any, index: number) => {
-						return <p key={`message-${index}`}>{mess.message}</p>
+					{!isLoggedIn && mockedMessages.map((message, index) => {
+						return <WeMessageContainer message={message} key={`message-mock-key-${index}`}/>
 					})}
+					{isLoggedIn && !isLoading && !error && messages.map((mess: any, index: number) => {
+						return <WeMessageContainer key={`message-key-${index}`} message={{
+							text: mess.message,
+							time: new Date(mess.timeStamp).toLocaleTimeString('pl-PL', {
+								hour: '2-digit',
+								minute: '2-digit'
+							}),
+							isFromBot: mess.sentByBot
+						}}/>
+					})}
+
 				</div>
 				<form className={s.chatFormContainer} onSubmit={handleSubmit(onSubmit)}>
 					<WeInput
