@@ -1,7 +1,8 @@
 import {WeButtonProps} from "../WeButton";
+import {LinkProps} from "react-router-dom";
 
 export type WeLinkButtonProps = WeButtonProps & {
-	href: string;
+	linkProps: LinkProps
 	buttonClassName?: string;
 };
 

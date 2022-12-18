@@ -10,13 +10,13 @@ export const WeLinkButton: React.FC<WeLinkButtonProps> = (
 		children,
 		className,
 		buttonClassName,
-		href,
+		linkProps,
 		variant = 'default',
 		...props
 	}) => {
 
 	return (
-		<Link className={clsx(className, s["variant-" + variant])} to={href}>
+		<Link className={clsx(className, s["variant-" + variant])} {...linkProps}>
 			<WeButton
 				className={buttonClassName}
 				variant={variant}

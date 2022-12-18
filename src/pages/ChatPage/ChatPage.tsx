@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import {TemplatePage} from "templates/TemplatePage";
 import {WeIconButton} from "components/WeIconButton";
 import {ReactComponent as Arrow} from "assets/icons/arrow.svg";
@@ -11,6 +11,38 @@ import {useQuery} from "react-query";
 import {AxiosError} from "axios";
 import {useUserContext} from "../../context/UserContext";
 import {WeMessageContainer} from "../../components/WeMessageContainer";
+
+const MOCKED_MESSAGES = [
+	{
+		text: "Cześć, jestem Weituś - uczelniany bot WEiTI!",
+		time: "12:37",
+		isFromBot: true
+	},
+	{
+		text: "W czym mógłbym Ci pomóc?",
+		time: "12:38",
+		isFromBot: true
+	},
+	{
+		text: "Chciałbym poznać ofertę edukacyjną Twojego wydziału.",
+		time: "12:39",
+		isFromBot: false
+	},
+	{
+		text: "Mógłbyś mi opowiedzieć, jakie kierunki są u was dostępne?",
+		time: "12:40",
+		isFromBot: false
+	},
+	{
+		text: "Zajrzyj na stronę:",
+		time: "12:40",
+		isFromBot: true,
+		link: {
+			href: "https://www.elka.pw.edu.pl/content/view/full/18114",
+			text: "Opis kierunków studiów"
+		}
+	}
+]
 
 export const ChatPage: React.FC = () => {
 
@@ -28,11 +60,20 @@ export const ChatPage: React.FC = () => {
 	} = useQuery<any, AxiosError>("messages", getMessages)
 
 	const {isLoggedIn} = useUserContext()
+	const [currentMessages, setCurrentMessages] = useState(MOCKED_MESSAGES)
 
 	const onSubmit = (data: any) => {
-		sendMessage(data).then(() => {
-			getMessagesRefetch()
-		})
+		if (isLoggedIn) {
+			sendMessage(data).then(() => {
+				getMessagesRefetch()
+			})
+		} else {
+			setCurrentMessages([...currentMessages, {
+				text: data.Message,
+				time: new Date().toLocaleTimeString("pl-PL", {hour: "2-digit", minute: "2-digit"}),
+				isFromBot: false
+			}])
+		}
 		resetField("Message");
 	}
 
@@ -42,39 +83,6 @@ export const ChatPage: React.FC = () => {
 		}
 	}, [])
 
-	console.log(messages)
-
-	const mockedMessages = [
-		{
-			text: "Cześć, jestem Weituś - uczelniany bot WEiTI!",
-			time: "12:37",
-			isFromBot: true
-		},
-		{
-			text: "W czym mógłbym Ci pomóc?",
-			time: "12:38",
-			isFromBot: true
-		},
-		{
-			text: "Chciałbym poznać ofertę edukacyjną Twojego wydziału.",
-			time: "12:39",
-			isFromBot: false
-		},
-		{
-			text: "Mógłbyś mi opowiedzieć, jakie kierunki są u was dostępne?",
-			time: "12:40",
-			isFromBot: false
-		},
-		{
-			text: "Zajrzyj na stronę:",
-			time: "12:40",
-			isFromBot: true,
-			link: {
-				href: "https://www.elka.pw.edu.pl/content/view/full/18114",
-				text: "Opis kierunków studiów"
-			}
-		}
-	]
 
 	return (
 		<TemplatePage>
@@ -83,7 +91,7 @@ export const ChatPage: React.FC = () => {
 
 			<div className={s.container}>
 				<div className={s.chatContainer}>
-					{!isLoggedIn && mockedMessages.map((message, index) => {
+					{!isLoggedIn && currentMessages.map((message, index) => {
 						return <WeMessageContainer message={message} key={`message-mock-key-${index}`}/>
 					})}
 					{isLoggedIn && !isLoading && !error && messages.map((mess: any, index: number) => {

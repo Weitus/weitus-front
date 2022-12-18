@@ -13,6 +13,7 @@ export const WeInput = React.forwardRef<any, WeInputProps>((
 	return (
 		<label className={s.container}>
 			<input
+				autoComplete={"off"}
 				className={clsx(s.input, s["variant-" + variant])}
 				ref={ref}
 				{...props}

@@ -14,11 +14,12 @@ import {LOCAL_STORAGE_CONFIG} from "../../config/localStorageConfig";
 export const WeHeader: React.FC<WeHeaderProps> = ({}) => {
 
 	const location = useLocation();
-	const variant = headerConfig(location.pathname);
+	const {variant, backPath} = headerConfig(location.pathname);
 	const navigate = useNavigate();
 	const {isLoggedIn, setIsLoggedIn} = useUserContext()
 
 	const handleClick = () => {
+		console.log("click")
 		if (isLoggedIn) {
 			localStorage.removeItem(LOCAL_STORAGE_CONFIG.AUTH_TOKEN);
 			setIsLoggedIn(false);
@@ -32,14 +33,13 @@ export const WeHeader: React.FC<WeHeaderProps> = ({}) => {
 					icon={<Arrow/>}
 					theme="transparent"
 					onClick={() => {
-						navigate(-1)
+						!!backPath ? navigate(backPath) : navigate(-1)
 					}}
 				/>}
 			{variant === HEADER_VARIANT.chat &&
 				<WeLinkButton
-					href={PATHS.login}
+					linkProps={{to: PATHS.login, onClick: handleClick}}
 					variant={"small"}
-					onClick={handleClick}
 				>
 					{isLoggedIn ? "Logout" : "Login"}
 				</WeLinkButton>}

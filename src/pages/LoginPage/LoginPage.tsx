@@ -14,9 +14,10 @@ import {useUserContext} from "context/UserContext";
 export const LoginPage: React.FC = () => {
 
 	const redirect = useNavigate();
-	const {register, formState, handleSubmit} = useForm();
+	const {register, handleSubmit} = useForm();
 	const loginMutation = useMutation("login", login);
 	const {setIsLoggedIn} = useUserContext()
+	const [error, setError] = React.useState("");
 
 	const onSubmit = (data: FieldValues) => {
 		const loginData: LoginData = {
@@ -29,8 +30,8 @@ export const LoginPage: React.FC = () => {
 				setIsLoggedIn(true);
 				redirect(PATHS.chat);
 			},
-			onError: (error) => {
-				console.log(error);
+			onError: (error: any) => {
+				setError(error?.response?.data?.message);
 			}
 		})
 	}
@@ -40,17 +41,20 @@ export const LoginPage: React.FC = () => {
 			<h1>
 				Login
 			</h1>
-			<form className={s.formContainer} onSubmit={handleSubmit(onSubmit)}>
-				<div className={s.inputContainer}>
-					<WeInput placeholder="Login" {...register("UserName")}/>
-					<WeInput type="password" placeholder="Password" {...register("Password")}/>
-				</div>
-				<WeButton type="submit">Login</WeButton>
+			<div className={s.contentContainer}>
+				<form className={s.formContainer} onSubmit={handleSubmit(onSubmit)}>
+					<div className={s.inputContainer}>
+						<WeInput placeholder="Login" {...register("UserName")}/>
+						<WeInput type="password" placeholder="Password" {...register("Password")}/>
+					</div>
+					{error && <p className={s.error}>{error}</p>}
+					<WeButton type="submit">Login</WeButton>
+				</form>
 				<p className={s.signInCaption}>
 					Don’t have account?{" "}
-					<Link to={PATHS.signup}>Sign In</Link>
+					<Link to={PATHS.signup}>Sign Up</Link>
 				</p>
-			</form>
+			</div>
 		</TemplatePage>
 	)
 }

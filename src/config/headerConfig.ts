@@ -6,19 +6,36 @@ export enum HEADER_VARIANT {
 	chat = 'chat',
 }
 
-export const headerConfig = (path: string): HEADER_VARIANT => {
+export type HeaderConfig = {
+	variant: HEADER_VARIANT,
+	backPath?: string,
+}
+
+export const headerConfig = (path: string): HeaderConfig => {
 	const {home, login, signup, chat} = PATHS;
 	switch (path) {
 		case home:
-			return HEADER_VARIANT.default;
+			return {
+				variant: HEADER_VARIANT.default,
+			}
 		case login:
-			return HEADER_VARIANT.defaultWithBack;
+			return {
+				variant: HEADER_VARIANT.defaultWithBack,
+				backPath: PATHS.home
+			}
 		case signup:
-			return HEADER_VARIANT.defaultWithBack;
+			return {
+				variant: HEADER_VARIANT.defaultWithBack,
+				backPath: PATHS.login
+			}
 		case chat:
-			return HEADER_VARIANT.chat;
+			return {
+				variant: HEADER_VARIANT.chat,
+			}
 		default:
-			return HEADER_VARIANT.default;
+			return {
+				variant: HEADER_VARIANT.default
+			};
 
 	}
 }
