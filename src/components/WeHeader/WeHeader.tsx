@@ -13,36 +13,35 @@ import {LOCAL_STORAGE_CONFIG} from "../../config/localStorageConfig";
 
 export const WeHeader: React.FC<WeHeaderProps> = ({}) => {
 
-	const location = useLocation();
-	const {variant, backPath} = headerConfig(location.pathname);
-	const navigate = useNavigate();
-	const {isLoggedIn, setIsLoggedIn} = useUserContext()
+    const location = useLocation();
+    const {variant, backPath} = headerConfig(location.pathname);
+    const navigate = useNavigate();
+    const {isLoggedIn, setIsLoggedIn} = useUserContext()
 
-	const handleClick = () => {
-		console.log("click")
-		if (isLoggedIn) {
-			localStorage.removeItem(LOCAL_STORAGE_CONFIG.AUTH_TOKEN);
-			setIsLoggedIn(false);
-		}
-	}
+    const handleClick = () => {
+        if (isLoggedIn) {
+            localStorage.removeItem(LOCAL_STORAGE_CONFIG.AUTH_TOKEN);
+            setIsLoggedIn(false);
+        }
+    }
 
-	return (
-		<div className={clsx(s.container, s["variant-" + variant])}>
-			{variant === HEADER_VARIANT.defaultWithBack &&
-				<WeIconButton
-					icon={<Arrow/>}
-					theme="transparent"
-					onClick={() => {
-						!!backPath ? navigate(backPath) : navigate(-1)
-					}}
-				/>}
-			{variant === HEADER_VARIANT.chat &&
-				<WeLinkButton
-					linkProps={{to: PATHS.login, onClick: handleClick}}
-					variant={"small"}
-				>
-					{isLoggedIn ? "Logout" : "Login"}
-				</WeLinkButton>}
-		</div>
-	)
+    return (
+        <div data-testid="header" className={clsx(s.container, s["variant-" + variant])}>
+            {variant === HEADER_VARIANT.defaultWithBack &&
+                <WeIconButton
+                    icon={<Arrow/>}
+                    theme="transparent"
+                    onClick={() => {
+                        !!backPath ? navigate(backPath) : navigate(-1)
+                    }}
+                />}
+            {variant === HEADER_VARIANT.chat &&
+                <WeLinkButton
+                    linkProps={{to: PATHS.login, onClick: handleClick}}
+                    variant={"small"}
+                >
+                    {isLoggedIn ? "Logout" : "Login"}
+                </WeLinkButton>}
+        </div>
+    )
 }
