@@ -1,8 +1,7 @@
 .messageBox {
+  flex: 0 0 auto;
   display: flex;
-  position: relative;
   width: 100%;
-  align-content: center;
   column-gap: 4px;
   justify-content: flex-end;
 }
