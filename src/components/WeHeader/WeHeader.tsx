@@ -16,11 +16,12 @@ export const WeHeader: React.FC<WeHeaderProps> = ({}) => {
     const location = useLocation();
     const {variant, backPath} = headerConfig(location.pathname);
     const navigate = useNavigate();
-    const {isLoggedIn, setIsLoggedIn} = useUserContext()
+    const {isLoggedIn, setIsLoggedIn, setUsername} = useUserContext()
 
     const handleClick = () => {
         if (isLoggedIn) {
             localStorage.removeItem(LOCAL_STORAGE_CONFIG.AUTH_TOKEN);
+            setUsername("");
             setIsLoggedIn(false);
         }
     }

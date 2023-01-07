@@ -4,7 +4,7 @@
   flex-direction: column;
   overflow: auto;
   row-gap: 8px;
-  padding: 0 max(calc((100% - 1280px) / 2), 16px);
+  padding: 16px max(calc((100% - 1280px) / 2), 16px);
 }
 
 .chatContainer:first-child {
@@ -18,6 +18,7 @@
   width: 100%;
   column-gap: 32px;
   max-width: 1280px;
+  padding: 16px;
 }
 
 .sendButton {

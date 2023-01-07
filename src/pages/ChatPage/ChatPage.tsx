@@ -28,7 +28,7 @@ export const ChatPage: React.FC = () => {
         refetch: getMessagesRefetch
     } = useQuery<any, AxiosError>("messages", getMessages)
 
-    const {isLoggedIn} = useUserContext()
+    const {isLoggedIn, username} = useUserContext()
     const [currentMessages, setCurrentMessages] = useState<{
         text: string,
         time: string,
