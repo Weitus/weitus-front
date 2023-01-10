@@ -27,6 +27,7 @@ export const LoginPage: React.FC = () => {
         loginMutation.mutate(loginData, {
             onSuccess: (data) => {
                 localStorage.setItem(LOCAL_STORAGE_CONFIG.AUTH_TOKEN, data.data.token);
+                localStorage.setItem(LOCAL_STORAGE_CONFIG.CHAT_TOKEN, data.data.chatIdentifier);
                 setIsLoggedIn(true);
                 setUsername(loginData.UserName);
                 redirect(PATHS.chat);

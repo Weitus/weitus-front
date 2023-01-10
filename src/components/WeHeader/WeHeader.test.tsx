@@ -11,7 +11,7 @@ function ShowLocation() {
     return <WeHeader key={location.pathname}/>
 }
 
-describe("WeButton general tests", () => {
+describe("WeHeader general tests", () => {
 
     afterEach(() => {
         cleanup();

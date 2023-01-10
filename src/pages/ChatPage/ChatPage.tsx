@@ -6,12 +6,13 @@ import s from "./ChatPage.module.scss";
 import {WeInput} from "components/WeInput";
 import {getMessages} from "api/chat/getMessages";
 import {useForm} from "react-hook-form";
-import {sendMessage} from "api/chat/sendMessage";
+import {sendMessage, SendMessageType} from "api/chat/sendMessage";
 import {useQuery} from "react-query";
 import {AxiosError} from "axios";
 import {useUserContext} from "../../context/UserContext";
 import {WeMessageContainer} from "../../components/WeMessageContainer";
 import {sendMessageToBot} from "../../api/chat/sendMessageToBot";
+import {LOCAL_STORAGE_CONFIG} from "../../config/localStorageConfig";
 
 export const ChatPage: React.FC = () => {
 
@@ -41,20 +42,32 @@ export const ChatPage: React.FC = () => {
     }
 
     const onSubmit = (data: any) => {
+        const newMessage = {
+            text: data.Message,
+            time: new Date().toLocaleTimeString("pl-PL", {hour: "2-digit", minute: "2-digit"}),
+            isFromBot: false
+        }
+        const chatIdentifier = localStorage.getItem(LOCAL_STORAGE_CONFIG.CHAT_TOKEN)
+        const sendData = {
+            "message": data.Message,
+            "sender": !!chatIdentifier ? chatIdentifier : "user"
+        }
         if (isLoggedIn) {
             sendMessage(data).then(() => {
-                getMessagesRefetch()
+                sendMessageToBot(sendData).then((response) => {
+                    response.forEach((message: any) => {
+                        const newBotMessage: SendMessageType = {
+                            Message: message.text,
+                        }
+                        sendMessage(newBotMessage, true).then((res) => {
+                            getMessagesRefetch().then(() => {
+                                scrollToBottom()
+                            })
+                        })
+                    })
+                })
             })
         } else {
-            const newMessage = {
-                text: data.Message,
-                time: new Date().toLocaleTimeString("pl-PL", {hour: "2-digit", minute: "2-digit"}),
-                isFromBot: false
-            }
-            const sendData = {
-                "message": data.Message,
-                "sender": "user"
-            }
             sendMessageToBot(sendData).then((response) => {
                 setCurrentMessages([...currentMessages, newMessage,
                     ...response.map((message: any) => ({
@@ -70,7 +83,10 @@ export const ChatPage: React.FC = () => {
 
     useEffect(() => {
         if (isLoggedIn) {
-            getMessagesRefetch();
+            getMessagesRefetch().then(() => {
+                    scrollToBottom()
+                }
+            );
         }
     }, [])
 

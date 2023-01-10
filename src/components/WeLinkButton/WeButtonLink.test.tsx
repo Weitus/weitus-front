@@ -5,7 +5,7 @@ import {WeLinkButton} from "./WeLinkButton";
 import {PATHS} from "../../config/paths";
 import {MemoryRouter} from "react-router-dom";
 
-describe("WeButton general tests", () => {
+describe("WeButtonLink general tests", () => {
 
     beforeEach(() => {
         render(
