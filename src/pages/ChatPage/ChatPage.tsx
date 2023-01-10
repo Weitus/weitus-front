@@ -57,11 +57,14 @@ export const ChatPage: React.FC = () => {
                 sendMessageToBot(sendData).then((response) => {
                     response.forEach((message: any) => {
                         const newBotMessage: SendMessageType = {
-                            Message: message.text,
+                            Message: message.text || message.image,
                         }
                         sendMessage(newBotMessage, true).then((res) => {
                             getMessagesRefetch().then(() => {
-                                scrollToBottom()
+                                setTimeout(() => {
+                                    console.log("message test")
+                                    scrollToBottom()
+                                }, 10)
                             })
                         })
                     })
@@ -84,14 +87,18 @@ export const ChatPage: React.FC = () => {
     useEffect(() => {
         if (isLoggedIn) {
             getMessagesRefetch().then(() => {
-                    scrollToBottom()
+                    setTimeout(() => {
+                        scrollToBottom()
+                    }, 100)
                 }
             );
         }
     }, [])
 
     useEffect(() => {
-        scrollToBottom()
+        setTimeout(() => {
+            scrollToBottom()
+        }, 100)
     }, [currentMessages])
 
     return (
