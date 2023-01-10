@@ -21,6 +21,7 @@ export const WeHeader: React.FC<WeHeaderProps> = ({}) => {
     const handleClick = () => {
         if (isLoggedIn) {
             localStorage.removeItem(LOCAL_STORAGE_CONFIG.AUTH_TOKEN);
+            localStorage.removeItem(LOCAL_STORAGE_CONFIG.CHAT_TOKEN);
             setUsername("");
             setIsLoggedIn(false);
         }

@@ -12,9 +12,21 @@ export const WeAuthGate: React.FC<React.PropsWithChildren> = (
     const {isLoggedIn, setIsLoggedIn} = useUserContext();
     const location = useLocation()
 
+    const generateRandomId = () => {
+        let result = '';
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        const charactersLength = characters.length;
+        for (var i = 0; i < 32; i++) {
+            result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        return result
+    }
+
     useEffect(() => {
         if (localStorage.getItem(LOCAL_STORAGE_CONFIG.AUTH_TOKEN)) {
             setIsLoggedIn(true);
+        } else if (location.pathname === PATHS.chat) {
+            localStorage.setItem(LOCAL_STORAGE_CONFIG.CHAT_TOKEN, generateRandomId());
         }
     }, []);
 

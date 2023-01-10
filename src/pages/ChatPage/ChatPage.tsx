@@ -74,7 +74,7 @@ export const ChatPage: React.FC = () => {
             sendMessageToBot(sendData).then((response) => {
                 setCurrentMessages([...currentMessages, newMessage,
                     ...response.map((message: any) => ({
-                        text: message.text,
+                        text: message.text || message.image,
                         time: new Date().toLocaleTimeString("pl-PL", {hour: "2-digit", minute: "2-digit"}),
                         isFromBot: true
                     }))
@@ -89,7 +89,7 @@ export const ChatPage: React.FC = () => {
             getMessagesRefetch().then(() => {
                     setTimeout(() => {
                         scrollToBottom()
-                    }, 100)
+                    }, 10)
                 }
             );
         }
@@ -98,7 +98,7 @@ export const ChatPage: React.FC = () => {
     useEffect(() => {
         setTimeout(() => {
             scrollToBottom()
-        }, 100)
+        }, 10)
     }, [currentMessages])
 
     return (
