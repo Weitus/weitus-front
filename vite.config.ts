@@ -15,5 +15,18 @@ export default defineConfig({
             reporter: ['text', 'json', 'html'],
         },
         css: true
+    },
+    server: {
+        watch: {
+            usePolling: true,
+        },
+        host: true,
+        strictPort: true,
+        port: 5173,
+    },
+    preview: {
+        host: true,
+        strictPort: true,
+        port: 5173,
     }
 })
