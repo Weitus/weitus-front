@@ -20,7 +20,10 @@
   padding: 8px;
   border-radius: 16px;
   font-size: x-large;
-  max-width: min(600px, 70vw);
+  line-height: 1.2;
+  max-width: min(800px, 70vw);
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 .messageContainer-bot {
@@ -42,4 +45,5 @@
 
 .link {
   font-weight: bolder;
+  color: #af42a0;
 }

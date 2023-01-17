@@ -22,6 +22,7 @@ export const WeAuthGate: React.FC<React.PropsWithChildren> = (
         return result
     }
 
+
     useEffect(() => {
         if (localStorage.getItem(LOCAL_STORAGE_CONFIG.AUTH_TOKEN)) {
             setIsLoggedIn(true);
