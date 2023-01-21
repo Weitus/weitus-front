@@ -1,0 +1,69 @@
+.messageBox {
+  flex: 0 0 auto;
+  display: flex;
+  width: 100%;
+  column-gap: 4px;
+  justify-content: flex-end;
+  flex-direction: row-reverse;
+}
+
+.tiblock {
+  margin-left: 52px;
+  align-items: center;
+  display: flex;
+  height: 40px;
+  padding: 8px;
+  border-radius: 16px;
+  font-size: x-large;
+  line-height: 1.2;
+  max-width: min(800px, 70vw);
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  white-space: pre-line;
+  background-color: #fac5f3;
+  color: black;
+}
+
+.ticontainer .tidot {
+  background-color: #000000;
+}
+
+.tidot {
+  -webkit-animation: mercuryTypingAnimation 1.5s infinite ease-in-out;
+  animation: mercuryTypingAnimation 1.5s infinite ease-in-out;
+  border-radius: 100%;
+  display: inline-block;
+  height: 8px;
+  margin-right: 4px;
+  width: 8px;
+}
+
+@-webkit-keyframes mercuryTypingAnimation {
+  0% {
+    -webkit-transform: translateY(0px);
+    transform: translateY(0px);
+  }
+  28% {
+    -webkit-transform: translateY(-5px);
+    transform: translateY(-5px);
+  }
+  44% {
+    -webkit-transform: translateY(0px);
+    transform: translateY(0px);
+  }
+}
+
+.tidot:nth-child(1) {
+  -webkit-animation-delay: 200ms;
+  animation-delay: 200ms;
+}
+
+.tidot:nth-child(2) {
+  -webkit-animation-delay: 300ms;
+  animation-delay: 300ms;
+}
+
+.tidot:nth-child(3) {
+  -webkit-animation-delay: 400ms;
+  animation-delay: 400ms;
+}

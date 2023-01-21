@@ -13,6 +13,8 @@ import {useUserContext} from "../../context/UserContext";
 import {WeMessageContainer} from "../../components/WeMessageContainer";
 import {sendMessageToBot} from "../../api/chat/sendMessageToBot";
 import {LOCAL_STORAGE_CONFIG} from "../../config/localStorageConfig";
+import {WeTypingIndicator} from "../../components/WeTypingIndicator";
+import * as trace_events from "trace_events";
 
 export const ChatPage: React.FC = () => {
 
@@ -29,17 +31,35 @@ export const ChatPage: React.FC = () => {
         refetch: getMessagesRefetch
     } = useQuery<any, AxiosError>("messages", getMessages)
 
-    const {isLoggedIn, username} = useUserContext()
+    const {isLoggedIn} = useUserContext()
     const [currentMessages, setCurrentMessages] = useState<{
         text: string,
         time: string,
         isFromBot: boolean,
     }[]>([])
+    const [isTyping, setIsTyping] = useState(false)
 
     const lastElementRef = useRef<HTMLDivElement>(null)
     const scrollToBottom = () => {
         lastElementRef.current?.scrollIntoView()
     }
+
+    const refetchMessages = () => {
+        getMessagesRefetch()
+    }
+
+    useEffect(() => {
+        if (isLoggedIn && !isLoading) {
+            setCurrentMessages(messages.map((message: any) => ({
+                text: message.message,
+                time: new Date(message.timeStamp).toLocaleTimeString('pl-PL', {
+                    hour: '2-digit',
+                    minute: '2-digit'
+                }),
+                isFromBot: message.sentByBot
+            })))
+        }
+    }, [messages])
 
     const onSubmit = (data: any) => {
         const newMessage = {
@@ -52,6 +72,11 @@ export const ChatPage: React.FC = () => {
             "message": data.Message,
             "sender": !!chatIdentifier ? chatIdentifier : "user"
         }
+        setIsTyping(true)
+        setCurrentMessages([...currentMessages, newMessage])
+        setTimeout(() => {
+            scrollToBottom()
+        }, 10)
         if (isLoggedIn) {
             sendMessage(data).then(() => {
                 sendMessageToBot(sendData).then((response) => {
@@ -59,14 +84,17 @@ export const ChatPage: React.FC = () => {
                         const newBotMessage: SendMessageType = {
                             Message: message.text || message.image,
                         }
-                        sendMessage(newBotMessage, true).then((res) => {
-                            getMessagesRefetch().then(() => {
+                        setIsTyping(true)
+                        setTimeout(() => {
+                            sendMessage(newBotMessage, true).then(() => {
+                                refetchMessages()
+                                setIsTyping(false)
                                 setTimeout(() => {
-                                    console.log("message test")
                                     scrollToBottom()
-                                }, 10)
+                                }, 100)
                             })
-                        })
+
+                        }, 10)
                     })
                 })
             })
@@ -79,6 +107,7 @@ export const ChatPage: React.FC = () => {
                         isFromBot: true
                     }))
                 ])
+                setIsTyping(false)
             })
         }
         resetField("Message");
@@ -86,14 +115,12 @@ export const ChatPage: React.FC = () => {
 
     useEffect(() => {
         if (isLoggedIn) {
-            getMessagesRefetch().then(() => {
-                    setTimeout(() => {
-                        scrollToBottom()
-                    }, 10)
-                }
-            );
+            refetchMessages()
+            setTimeout(() => {
+                scrollToBottom()
+            }, 10)
         }
-    }, [])
+    }, [isLoggedIn])
 
     useEffect(() => {
         setTimeout(() => {
@@ -107,16 +134,10 @@ export const ChatPage: React.FC = () => {
                 {!isLoggedIn && currentMessages.map((message, index) => {
                     return <WeMessageContainer message={message} key={`message-mock-key-${index}`}/>
                 })}
-                {isLoggedIn && !isLoading && !error && messages.map((mess: any, index: number) => {
-                    return <WeMessageContainer key={`message-key-${index}`} message={{
-                        text: mess.message,
-                        time: new Date(mess.timeStamp).toLocaleTimeString('pl-PL', {
-                            hour: '2-digit',
-                            minute: '2-digit'
-                        }),
-                        isFromBot: mess.sentByBot
-                    }}/>
+                {isLoggedIn && !isLoading && !error && currentMessages.map((message, index) => {
+                    return <WeMessageContainer message={message} key={`message-key-${index}`}/>
                 })}
+                {isTyping && <WeTypingIndicator/>}
                 <div ref={lastElementRef}/>
             </div>
             <form className={s.chatFormContainer} onSubmit={handleSubmit(onSubmit)}>
